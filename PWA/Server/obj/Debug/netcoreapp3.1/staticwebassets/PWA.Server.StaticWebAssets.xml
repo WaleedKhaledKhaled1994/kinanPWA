@@ -1,0 +1,6 @@
+﻿<StaticWebAssets Version="1.0">
+  <ContentRoot BasePath="/" Path="C:\Users\ENG\Desktop\PWA\PWA\PWA\Client\bin\Debug\netstandard2.1\wwwroot\" />
+  <ContentRoot BasePath="/" Path="C:\Users\ENG\Desktop\PWA\PWA\PWA\Client\wwwroot\" />
+  <ContentRoot BasePath="_content/Telerik.UI.for.Blazor" Path="C:\Users\ENG\.nuget\packages\telerik.ui.for.blazor\2.15.0\build\..\staticwebassets\" />
+  <ContentRoot BasePath="_content/Tewr.Blazor.FileReader" Path="C:\Users\ENG\.nuget\packages\tewr.blazor.filereader\1.5.0.20109\build\..\staticwebassets\" />
+</StaticWebAssets>

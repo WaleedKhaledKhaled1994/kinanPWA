@@ -1,0 +1,23 @@
+﻿@page "/category/edit/{CategoryId:int}"
+@inject ICategory categoryRepository
+@inject NavigationManager navigationManager
+
+@if (category != null)
+{
+    <CategoryForm category="category" Action="Edit" onValidSubmit="Edit" />
+}
+@code {
+    [Parameter] public int CategoryId { get; set; }
+    public Category category;
+
+    protected async override Task OnInitializedAsync()
+    {
+        category = await categoryRepository.GetCategory(CategoryId);
+    }
+
+    private async Task Edit()
+    {
+        await categoryRepository.UpdateCategory(category);
+        navigationManager.NavigateTo("categories");
+    }
+}

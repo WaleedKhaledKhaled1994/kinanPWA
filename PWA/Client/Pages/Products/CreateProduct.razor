@@ -1,0 +1,28 @@
+﻿@page "/product/create"
+@inject IProduct productRepository
+@inject NavigationManager navigationManager
+
+<Header />
+
+<ProductForm  product="product" Action="Create" onValidSubmit="Create" />
+
+<Footer />
+
+@code {
+    private Product product = new Product();
+    //private SubCategory subCategory = new SubCategory();
+
+
+    private async Task Create()
+    {
+        try
+        {
+            await productRepository.CreateProduct(product);
+            navigationManager.NavigateTo("products");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+}

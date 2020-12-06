@@ -1,0 +1,15 @@
+﻿@page "/logout"
+
+@inject NavigationManager navigationManager
+@inject ILoginService loginService
+@using PWA.Client.Auth 
+
+<text>Logout...</text>
+
+@code {
+    protected async override Task OnInitializedAsync()
+    {
+        await loginService.Logout();
+        navigationManager.NavigateTo("login");
+    }
+}

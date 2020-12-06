@@ -1,0 +1,25 @@
+﻿@page "/subCategory/edit/{SubCategoryId:int}"
+@inject ISubCategory subCategoryRepository
+@inject NavigationManager navigationManager
+
+@if (subCategory != null)
+{
+    <SubCategoryForm subCategory="subCategory" Action="Edit" onValidSubmit="Edit"/>
+}
+
+@code {
+    [Parameter] public int SubCategoryId { get; set; }
+    public SubCategory subCategory;
+
+    protected async override Task OnInitializedAsync()
+    {
+        subCategory = await subCategoryRepository.GetSubCategory(SubCategoryId);
+    }
+
+    private async Task Edit()
+    {
+        await subCategoryRepository.UpdateSubCategory(subCategory);
+        navigationManager.NavigateTo("SubCategories");
+    }
+
+}

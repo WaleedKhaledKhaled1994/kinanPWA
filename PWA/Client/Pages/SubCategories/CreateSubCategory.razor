@@ -1,0 +1,26 @@
+﻿@page "/subCategory/create"
+@inject ISubCategory subCategoryRepository
+@inject NavigationManager navigationManager
+
+<Header />
+
+<SubCategoryForm subCategory="subCategory" Action="Create" onValidSubmit="Create" />
+
+<Footer />
+
+@code {
+    private SubCategory subCategory = new SubCategory();
+
+    private async Task Create()
+    {
+        try
+        {
+            await subCategoryRepository.CreateSubCategory(subCategory);
+            navigationManager.NavigateTo("SubCategories");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+}

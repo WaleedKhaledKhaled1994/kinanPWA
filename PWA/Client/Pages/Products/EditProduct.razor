@@ -1,0 +1,39 @@
+﻿@page "/product/edit/{ProductId:long}"
+@inject ISubCategory subCategoryRepository
+@inject ICategory categoryRepository
+@inject IProduct productRepository
+
+
+@inject NavigationManager navigationManager
+
+@if (product != null)
+{
+    <ProductForm product="product" Action="Edit" onValidSubmit="Edit" />
+}
+
+@code {
+
+    [Parameter] public long ProductId { get; set; }
+
+
+    public SubCategory subCategory;
+    public Product product;
+    public Category category;
+
+
+
+    protected async override Task OnInitializedAsync()
+    {
+        product = await productRepository.GetProduct(ProductId);
+        subCategory = await subCategoryRepository.GetSubCategory(product.SubCatId);
+        category = await categoryRepository.GetCategory(product.SubCategory.CategoryId);
+
+    }
+
+    private async Task Edit()
+    {
+        await productRepository.UpdateProduct(product);
+        navigationManager.NavigateTo("settings");
+    }
+
+}

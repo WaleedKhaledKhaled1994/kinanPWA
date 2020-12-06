@@ -1,0 +1,54 @@
+﻿@page "/SubCategories"
+@page "/SubCategories/index"
+
+@inject ISubCategory subCategoryRepository
+
+<Header />
+<br />
+<br />
+<br />
+<div class="container">
+    <TelerikListView Data=@subCategories Pageable="true" PageSize="5"> 
+        <HeaderTemplate>
+            <a href="/subcategory/create" style="margin-left:20px;"><TelerikButton Icon="add" Class="btn-primary">Add</TelerikButton></a>
+            <h3 style="text-align:center; color:black">
+                Subcategories
+            </h3>
+        </HeaderTemplate>
+        <Template>
+            <div class="k-card k-card-horizontal">
+                <div class="k-vbox k-column">
+                    <div class="k-card-body">
+                        <h3 class="k-card-title" style="color:black">@context.Category.Name</h3>
+                        <h4 class="k-card-title" style="color:black">@context.Name</h4>
+                        <h5 class="k-card-subtitle" style="color:grey">@context.Description</h5>
+                    </div>
+                    <div class="k-card-actions k-card-actions-horizontal k-card-actions-start">
+                        @*<a href="/book/Details/@context.Id" style="color: black;"><TelerikButton Icon="info">Details</TelerikButton></a>*@
+                        <a href="/subcategory/Edit/@context.Id"><TelerikButton Icon="edit" Class="btn-dark">Edit</TelerikButton></a>
+                        &nbsp;&nbsp;
+                        <ConfirmButton OnClick="@(() => DeleteRow(@context.Id))" ConfirmText="Are you sure you want to delete this subcategory?" ButtonText="Delete" ConfirmTitle="Delete subcategory!" Icon="delete" ButtonType="btn-danger" />
+                    </div>
+                </div>
+                <img class="k-card-image img-thumbnail" alt="SubCategory Image" src="@context.Image" />
+            </div>
+        </Template>
+    </TelerikListView>
+</div>
+
+<Footer />
+
+
+@code{
+    private List<SubCategory> subCategories;
+
+    protected override async Task OnInitializedAsync()
+    {
+        subCategories = await subCategoryRepository.GetSubCategories();
+    }
+    private async Task DeleteRow(int id)
+    {
+        await subCategoryRepository.DeleteSubCategory(id);
+        subCategories = await subCategoryRepository.GetSubCategories();
+    }
+}

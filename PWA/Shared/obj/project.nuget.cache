@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "s9IYvCQ0hrjAJaXwvvt7kUM5RAO5CWi+crYBiBofZSFaZmzBROyOIrUiWKOMixG8besqtN0DRpR26DCGvuWbRQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\ENG\\Desktop\\PWA\\PWA\\PWA\\Shared\\PWA.Shared.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ENG\\.nuget\\packages\\system.componentmodel.annotations\\4.7.0\\system.componentmodel.annotations.4.7.0.nupkg.sha512"
+  ],
+  "logs": []
+}

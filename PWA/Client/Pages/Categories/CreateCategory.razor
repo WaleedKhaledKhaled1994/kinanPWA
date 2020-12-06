@@ -1,0 +1,26 @@
+﻿@page "/category/create"
+@inject ICategory categoryRepository
+@inject NavigationManager navigationManager
+
+<Header />
+
+<CategoryForm category="category" Action="Create" onValidSubmit="Create" />
+
+<Footer />
+
+@code {
+    private Category category = new Category();
+
+    private async Task Create()
+    {
+        try
+        {
+            await categoryRepository.CreateCategory(category);
+            navigationManager.NavigateTo("categories");
+        }
+        catch(Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+}

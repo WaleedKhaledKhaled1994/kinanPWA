@@ -1,0 +1,149 @@
+﻿@inject ICategory categoryRepository
+@inject ISubCategory subCategoryRepository
+@inject IProduct productRepository
+@inject IJSRuntime js
+
+
+<div class="page-content-wrapper">
+    <div class="container">
+        <div class="profile-wrapper-area py-3">
+            <div class="card user-info-card">
+                <div class="card-body p-4 d-flex align-items-center">
+                    <div class="user-info">
+                        <h3>@Action Product</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card user-data-card">
+                <div class="card-body">
+                    <EditForm Model="product" OnValidSubmit="onValidSubmit">
+                        <DataAnnotationsValidator />
+                        @if (Action == "Create")
+                        {
+                            <div class="form-group">
+                                <label>Category:</label>
+                                <div>
+                                    <TelerikComboBox @bind-Value="@categoryId" Data="@categories" Placeholder="Select Category" OnChange="@(() => OnChange(categoryId))"
+                                                     TextField="@nameof(Category.Name)" ValueField="@nameof(Category.Id)" Filterable="true"
+                                                     Id="category">
+                                    </TelerikComboBox>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>SubCategory:</label>
+                                <div>
+                                    <TelerikComboBox @bind-Value="@product.SubCatId" Data="@newsubCategories" Placeholder="Select SubCategory"
+                                                     TextField="@nameof(SubCategory.Name)" ValueField="@nameof(SubCategory.Id)" Filterable="true"
+                                                     Id="subCategory">
+                                    </TelerikComboBox>
+                                </div>
+                            </div>
+                        }
+
+
+
+                        <div class="form-group">
+                            <label>Name:</label>
+                            <div>
+                                <InputText class="form-control" @bind-Value="@product.Name" />
+                                <ValidationMessage For="@(() => product.Name)" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Description:</label>
+                            <div>
+                                <InputText class="form-control" @bind-Value="@product.Description" />
+                                <ValidationMessage For="@(() => product.Description)" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Price:</label>
+                            <div>
+                                <InputNumber class="form-control" @bind-Value="@product.Price" />
+                                <ValidationMessage For="@(() => product.Price)" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>out Of Stock:</label>
+                            <div>
+                                <InputCheckbox class="form-control" @bind-Value="@product.OutOfStock" />
+                                <ValidationMessage For="@(() => product.OutOfStock)" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <InputImg Label="Image" OnSelectedImage="PictureSelected" ImageURL="@imageURL" />
+                        </div>
+
+                        <button class="btn btn-success" type="submit">Save Changes</button>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public SubCategory subCategory { get; set; }
+    [Parameter] public Product product { get; set; }
+
+    [Parameter] public string Action { get; set; }
+    [Parameter] public EventCallback onValidSubmit { get; set; }
+    private string imageURL;
+    private int categoryId;
+    private List<Category> categories;
+    private List<SubCategory> subCategories;
+    private List<SubCategory> newsubCategories;
+
+
+    protected override void OnInitialized()
+    {
+        if (!string.IsNullOrEmpty(product.Image))
+        {
+            imageURL = product.Image;
+            product.Image = null;
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        categories = await categoryRepository.GetCategories();
+        subCategories = await subCategoryRepository.GetSubCategories();
+    }
+    private async Task OnChange(int categoryId)
+    {
+        Console.WriteLine("Hello");
+        newsubCategories =subCategories.Where(s => s.CategoryId == categoryId).ToList();
+        foreach (var item in newsubCategories)
+        {
+            Console.WriteLine(item.Name);
+
+        }
+        Console.WriteLine("World");
+
+
+    }
+
+
+
+    private void PictureSelected(string imageBase64)
+    {
+        product.Image = imageBase64;
+        imageURL = null;
+        Console.WriteLine(imageBase64);
+    }
+
+
+
+    protected async Task GetSubByCat()
+    {
+        subCategories = await subCategoryRepository.GetSubCategoriesByCategory(8);
+        await Task.Delay(3000);
+        foreach (var item in subCategories)
+        {
+            Console.WriteLine(item.Name);
+
+        }
+    }
+}

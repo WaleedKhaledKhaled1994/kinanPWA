@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <meta name="Description" content="Author: Kinan Tasspaehji, University: Syrian Virtual University,Section:MWS" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="theme-color" content="#317EFB" />
+
+    <title>PWA</title>
+    <base href="/settings" />
+
+    <link rel="canonical" href="https://localhost:44311" />
+    <link href="manifest.json" rel="manifest" />
+    <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png" />
+
+    <!-- Stylesheet-->
+    <link rel="stylesheet" href="_content/Telerik.UI.for.Blazor/css/kendo-theme-bootstrap/all.css" />
+    <link href="/css/style.css" rel="stylesheet" />
+
+    <!-- Favicon-->
+    <link rel="icon" href="/img/core-img/favicon.ico">
+</head>
+<body>
+    <app>
+        <!-- Preloader-->
+        <div class="preloader" id="preloader">
+            <div class="spinner-grow text-secondary" role="status">
+                <div class="sr-only">Loading...</div>
+            </div>
+        </div>
+    </app>
+
+    <!--<noscript>-->
+    <!--<div>
+        <img src="/20160805_115646.jpg" style="height:150px; width:150px;" alt="Alternate Text" />
+    </div>-->
+    <!--<p>Please enable javascript</p>
+    </noscript>-->
+    <!--<div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>-->
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script>navigator.serviceWorker.register('service-worker.js');</script>
+
+    <!-- All JavaScript Files-->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/waypoints.min.js"></script>
+    <script src="/js/jquery.easing.min.js"></script>
+    <script src="/js/owl.carousel.min.js"></script>
+    <script src="/js/jquery.animatedheadline.min.js"></script>
+    <script src="/js/jquery.counterup.min.js"></script>
+    <script src="/js/wow.min.js"></script>
+    <script src="/js/jarallax.min.js"></script>
+    <script src="/js/jarallax-video.min.js"></script>
+    <script src="/js/default/jquery.passwordstrength.js"></script>
+    <script src="/js/default/dark-mode-switch.js"></script>
+    <script src="/js/default/active.js"></script>
+
+    <script src="_content/Telerik.UI.for.Blazor/js/telerik-blazor.js" defer></script>
+    <script src="/js/myJS.js"></script>
+</body>
+</html>

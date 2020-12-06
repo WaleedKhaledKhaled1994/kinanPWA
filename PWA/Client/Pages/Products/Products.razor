@@ -1,0 +1,59 @@
+﻿@page "/subcategory/{SubCategoryId:int}"
+@inject ISubCategory subCategoryRepository
+@inject IProduct productRepository
+
+@if (Title != null)
+{
+    <HeaderBack link="/" Title="@Title" />
+}
+
+
+
+<div class="top-products-area pt-3">
+    <div class="container">
+        <div class="section-heading d-flex align-items-center justify-content-between">
+            <h6 class="ml-1">Flash Sale Products</h6>
+        </div>
+        <GenericList List="products">
+            <WholeListTemplate>
+                <div class="product-catagory-wrap">
+                    <div class="row">
+                        @foreach (var item in products)
+                        {
+                            <!-- Single Flash Sale Card-->
+                            <div class="col-6 col-sm-4">
+                                <div class="card flash-sale-card mb-3">
+                                    <div class="card-body">
+                                        <a href="single-product.html">
+                                            <img src="@item.Image" alt="@item.Name"><span class="product-title">@item.Name</span>
+                                            <span class="progress-title">@item.Description</span>
+                                            <span class="progress-title">@item.Price</span>
+                                          
+
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </WholeListTemplate>
+        </GenericList>
+    </div>
+</div>
+
+<Footer />
+@code {
+    [Parameter] public int SubCategoryId { get; set; }
+    private string Title;
+    private SubCategory subcategory;
+    private List<Product> products;
+
+    protected override async Task OnInitializedAsync()
+    {
+        subcategory = await subCategoryRepository.GetSubCategory(SubCategoryId);
+        Title = subcategory.Name;
+
+        products = await productRepository.GetProductsBySubCategory(SubCategoryId);
+    }
+}
